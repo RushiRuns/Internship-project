@@ -17,7 +17,12 @@ if ($check->num_rows > 0) {
     $stmt = $conn->prepare("INSERT INTO registration (username, email, password) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $username, $email, $hashed_password);
     $stmt->execute();
-    echo "Registration successful! <a href='login.php'>Login here</a>";
+
+    session_start();
+    $_SESSION["user_id"] = $conn->insert_id;
+    header("Location: dashboard.php");
+    exit();
+
     $stmt->close();
 }
 $check->close();
