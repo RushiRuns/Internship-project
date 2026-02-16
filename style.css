@@ -8,6 +8,19 @@
 
 /* *: Global styles */
 
+:root {
+  --background-color-opacity: #f8fafc;
+  --background-color-2: #ffffff;
+
+  --text-clr: #1e293b;
+  --subtext-clr: #5a6e8f;
+
+  --size-text: 1rem;
+  --size-heading: 1.125rem;
+  --size-small: 0.8125rem;
+  --size-large-text: 1.8125rem;
+}
+
 body {
   font-family: Arial, sans-serif;
   color: #ffffffad;
