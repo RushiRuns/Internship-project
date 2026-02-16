@@ -168,9 +168,8 @@ a {
 
 /* *: dashboard */
 
-.nav-container {
+.dashboard-container {
   background-color: var(--background-color-opacity);
-  height: 100vh;
 }
 
 .nav {
@@ -275,4 +274,75 @@ a {
 
 .sidebar-items:hover {
   text-decoration: underline;
+}
+
+.profile-container {
+  max-width: 31.25rem;
+  margin: 5rem auto;
+  background-color: var(--background-color-2);
+}
+
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.profile-img {
+  width: 13rem;
+  height: 13rem;
+}
+
+.profile-username {
+  text-align: center;
+}
+
+.update-section {
+  padding: 1rem;
+}
+
+.update-section h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.update-section,
+.update-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-form input {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.update-form label {
+  margin-bottom: 0.3rem;
+}
+
+.update-btn {
+  margin-top: 0.5rem;
+  padding-block: 0.5rem;
+}
+
+.delete-section {
+  padding: 1rem;
+}
+
+.delete-section h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.delete-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.delete-btn {
+  margin-top: 0.5rem;
+  padding-block: 0.5rem;
 }
