@@ -1,4 +1,4 @@
-/* reset code */
+/* *:reset code */
 
 * {
   margin: 0;
@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-/* Global styles */
+/* *: Global styles */
 
 body {
   font-family: Arial, sans-serif;
@@ -22,7 +22,7 @@ input {
   border: none;
 }
 
-/* utility classes */
+/* *:utility classes */
 
 .link {
   text-decoration: none;
@@ -58,7 +58,7 @@ input {
   -o-border-radius: 5px;
 }
 
-/* Homepage */
+/* *:Homepage */
 
 .homepage {
   background-color: #78bcd0;
@@ -86,7 +86,7 @@ input {
   margin-top: 2rem;
 }
 
-/* registration */
+/* *:authentication */
 
 .form-container {
   background-color: #78bcd0;
@@ -132,3 +132,5 @@ input {
 .form-link:hover {
   text-decoration: underline;
 }
+
+/* *: dashboard */
