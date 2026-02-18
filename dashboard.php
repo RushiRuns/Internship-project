@@ -26,21 +26,31 @@ if (isset($_POST["update_profile"])) {
     $new_username = htmlspecialchars($_POST["username"]);
     $new_email = htmlspecialchars($_POST["email"]);
 
-    $stmt = $conn->prepare("UPDATE registration SET username = ?, email = ? WHERE id = ?");
-    $stmt->bind_param("ssi", $new_username, $new_email, $user_id);
-    $stmt->execute();
-    $stmt->close();
+    // Check if email is already taken
+    $check = $conn->prepare("SELECT id FROM registration WHERE email = ? AND id != ?");
+    $check->bind_param("si", $new_email, $user_id);
+    $check->execute();
+    $check->store_result();
 
-    // Update the session with new values
-    $_SESSION["username"] = $new_username;
-    $_SESSION["email"] = $new_email;
+    if ($check->num_rows > 0) {
+        echo "<script>alert('That email is already in use.');</script>";
+        $check->close();
+    } else {
+        $check->close();
+        $stmt = $conn->prepare("UPDATE registration SET username = ?, email = ? WHERE id = ?");
+        $stmt->bind_param("ssi", $new_username, $new_email, $user_id);
+        $stmt->execute();
+        $stmt->close();
 
-    header("Location: dashboard.php");
-    exit();
+        $_SESSION["username"] = $new_username;
+        $_SESSION["email"] = $new_email;
+
+        header("Location: dashboard.php");
+        exit();
+    }
 }
 
-// -------- FETCH FRESH DATA FROM DATABASE --------
-// Always fetch from DB, not just session, so data is always up to date
+// -------- FETCH LOGGED-IN USER DATA --------
 $stmt = $conn->prepare("SELECT username, email FROM registration WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -69,7 +79,7 @@ $email = $user['email'];
         <div class="nav border">
             <div class="nav-logo">
                 <i class="fa-solid fa-bars menu-icon"></i>
-                <a href="#" class="logo">Logo</a>
+                <a href="#" class="logo">Dashboard</a>
             </div>
             <div class="nav-input">
                 <i class="fa-solid fa-magnifying-glass icon icon-mg"></i>
@@ -82,10 +92,9 @@ $email = $user['email'];
                 <i class="fa-solid fa-xmark close-icon"></i>
             </div>
             <ul class="sidebar-list">
-                <li class="sidebar-items">Dashboard</li>
-                <li class="sidebar-items">Profile</li>
-                <li class="sidebar-items">Settings</li>
-                <li class="sidebar-items">Logout</li>
+                <li class="sidebar-items"><a href="dashboard.php">Individual</a></li>
+                <li class="sidebar-items"><a href="all-users.php">All users</a></li>
+                <li class="sidebar-items"><a href="logout.php">Logout</a></li>
             </ul>
         </section>
     </nav>
@@ -94,12 +103,8 @@ $email = $user['email'];
         <div class="user-profile">
             <img src="profile.jpg" alt="Profile Photo" class="profile-img">
             <div>
-                <p class="profile-username">
-                    <?= $username ?>
-                </p>
-                <p class="profile-email">
-                    <?= $email ?>
-                </p>
+                <p class="profile-username"><?= $username ?></p>
+                <p class="profile-email"><?= $email ?></p>
             </div>
         </div>
         <hr>
@@ -117,9 +122,7 @@ $email = $user['email'];
                 <button type="submit" name="update_profile" class="update-btn">Update</button>
             </form>
         </div>
-
         <hr>
-        <!-- DELETE FORM -->
         <div class="delete-section">
             <h3>Danger Zone</h3>
             <form action="dashboard.php" method="POST" class="delete-form"
@@ -128,6 +131,7 @@ $email = $user['email'];
             </form>
         </div>
     </main>
+
     <script src="script.js"></script>
 </body>
 
