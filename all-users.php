@@ -130,7 +130,7 @@ $all_users = $all_users_result->fetch_all(MYSQLI_ASSOC);
                         <td>
                             <input type="email" name="email" value="<?= $u['email'] ?>" required maxlength="50">
                         </td>
-                        <td>
+                        <td class="form-btn-container">
                             <button type="submit" name="update_profile" class="edit-btn">Save</button>
                             </form>
                             <form action="all-users.php" method="POST" style="display:inline;"
@@ -144,7 +144,6 @@ $all_users = $all_users_result->fetch_all(MYSQLI_ASSOC);
             </tbody>
         </table>
     </main>
-
     <script src="script.js"></script>
 </body>
 
